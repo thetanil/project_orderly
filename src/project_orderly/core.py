@@ -53,3 +53,10 @@ def test(args: List[str]) -> int:
 def run(args: List[str]) -> int:
     print("po run: nothing to run (placeholder)")
     return 0
+
+
+@register("gui", help="Open the Backlog Desk desktop window (needs the `gui` extra).")
+def gui(args: List[str]) -> int:
+    from .gui import main
+
+    return main(args)
