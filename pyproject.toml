@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "project-orderly"
+version = "0.1.0"
+description = "Project Orderly: a pure-Python library and the `po` CLI."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/thetanil/project_orderly"
+
+[project.scripts]
+po = "project_orderly.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/project_orderly"]
