@@ -29,13 +29,14 @@ uv run --extra gui po gui --stress 5000   # ~5000 generated items, to judge perf
 uv run --extra gui po gui my.json --debug # your file, with web inspector
 ```
 
-On Linux, pywebview also needs a GTK or Qt backend (e.g. `--extra gui --with "pywebview[qt]"`).
+On Linux the `gui` extra installs the Qt backend from pip (no system packages needed).
 
 ### Run the latest main on your desktop
 
 Each push to `main` (incl. merged PRs) replaces the `latest` prerelease with a fresh wheel:
 
 ```
-gh release download latest -R thetanil/project_orderly -p '*.whl' -D "$TMPDIR/po" --clobber
-uvx --from "$(ls $TMPDIR/po/*.whl)[gui]" po gui --stress 3000
+d=$(mktemp -d)
+gh release download latest -R thetanil/project_orderly -p '*.whl' -D "$d"
+uvx --from "project-orderly[gui] @ file://$(ls "$d"/*.whl)" po gui --stress 3000
 ```

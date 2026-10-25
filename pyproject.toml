@@ -16,7 +16,10 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-gui = ["pywebview>=5"]
+gui = [
+    "pywebview[qt]>=5; sys_platform == 'linux'",
+    "pywebview>=5; sys_platform != 'linux'",
+]
 
 [project.urls]
 Homepage = "https://github.com/thetanil/project_orderly"
