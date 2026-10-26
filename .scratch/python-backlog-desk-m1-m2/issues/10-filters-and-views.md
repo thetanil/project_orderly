@@ -14,3 +14,7 @@ Add filter chips for type, state and iteration and a "Mine" toggle; text filter 
 
 - [ ] Api test: the current-user setting persists across reopen and never appears in the store file.
 - [ ] Filtering never changes data; with 3000 stress items filter updates stay under one frame budget (visible in the perf readout).
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

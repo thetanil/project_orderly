@@ -17,7 +17,7 @@ FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
 
 def build_frontend() -> bool:
     """In a repo checkout, (re)build the frontend if its sources are newer than the build."""
-    if not (FRONTEND_DIR / "package.json").exists():
+    if not (FRONTEND_DIR / "package.json").exists() or not (FRONTEND_DIR.parent / "pyproject.toml").exists():
         return (UI_DIR / "index.html").exists()
     built = UI_DIR / "index.html"
     srcs = [p for p in FRONTEND_DIR.rglob("*") if p.is_file() and "node_modules" not in p.parts]

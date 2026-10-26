@@ -14,3 +14,7 @@ Replace textareas for description, acceptance criteria and local notes with a Co
 
 - [ ] Edits in the editor are undoable with the app-level undo and appear in the Problems list if R22 is violated.
 - [ ] Editor theme follows the dark/light toggle; large descriptions stay responsive.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

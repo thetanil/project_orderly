@@ -14,3 +14,7 @@ Introduce one mutation operation type (set field, and later create/remove/move) 
 
 - [ ] Api tests: edit returns item plus ancestors with updated rollups; undo/redo round-trips to a byte-identical store; attempts to set `remotes`/`rollup` are rejected.
 - [ ] Inline edit in a tree row works for title, state, priority and story points.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

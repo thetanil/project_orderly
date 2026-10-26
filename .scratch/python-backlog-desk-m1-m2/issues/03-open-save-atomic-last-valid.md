@@ -16,3 +16,7 @@ Remove the Save button and Ctrl+S. After every mutation (debounced while typing)
 
 - [ ] Api tests: a mutation that introduces an E-level issue does not touch the file and a later fixing mutation writes it; a store with stale rollups is rewritten with correct rollups on load; simulated failure between temp write and rename leaves the old file byte-identical; `.backlogdesk/last-valid.json` appears after a save and `backlog.json` contains no app state.
 - [ ] Opening a corrupt file shows a readable message and does not crash the window.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

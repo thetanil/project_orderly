@@ -14,3 +14,7 @@ Shift/Ctrl-click multi-select in the tree and a bulk panel for state, iteration,
 
 - [ ] Api test: a bulk operation over N items is one undo step and returns one consolidated response.
 - [ ] Items for which a field is not allowed are skipped and reported, not corrupted.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

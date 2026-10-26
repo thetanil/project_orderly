@@ -17,3 +17,7 @@ Record an ADR in `docs/adr/0001-…`: v2 shape and numbering (R14–R16 → R23�
 - [ ] The sample store, stress data of any N, and the schema document's example (translated to v2) validate against the schema.
 - [ ] A store missing `schemaVersion` or with an unknown version is rejected on open with a readable message.
 - [ ] ADR exists and covers each decision listed above.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

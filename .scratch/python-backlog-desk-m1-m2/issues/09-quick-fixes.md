@@ -14,3 +14,7 @@ Implement quick fixes from the UI spec table for rules whose fix is in scope: R4
 
 - [ ] Api test per quick fix: the issue disappears and no new E-level issue appears.
 - [ ] Problems screen shows a Fix button only where a fix exists.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

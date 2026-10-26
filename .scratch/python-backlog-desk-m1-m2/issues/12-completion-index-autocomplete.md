@@ -14,3 +14,7 @@ Add the in-memory completion index (items, people, iterations, tags) with fuzzy 
 
 - [ ] Api test: suggest returns ranked results for each kind; results for 3000 items arrive in under about 20 ms (measured in a test with a generous bound).
 - [ ] Typing `#` and `@` in the editor offers matching entries.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

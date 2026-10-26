@@ -14,3 +14,7 @@ User stories: 46, 47
 
 - [ ] CLI tests: clean store exits 0; store with an E-level issue exits 1 and lists it; hand-edited rollup reports R10; `--previous` with a deleted synced item reports R24; `--json` output parses.
 - [ ] Works with the base install (no `gui` extra).
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

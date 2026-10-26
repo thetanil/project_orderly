@@ -14,3 +14,7 @@ Alt+Up/Down and drag to rerank among siblings; drag or Tab/Shift+Tab to reparent
 
 - [ ] Api tests: midpoint rank, renumber fallback, reparent to wrong level refused, move is one undo step.
 - [ ] Drag and keyboard moves behave the same in the visual test.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

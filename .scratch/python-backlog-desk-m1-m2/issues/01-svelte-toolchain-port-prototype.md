@@ -18,3 +18,7 @@ Pipeline: CI installs Node, type-checks and builds the frontend before `uv build
 - [ ] The wheel built by CI contains the built frontend and `uvx` run-latest works with no Node installed.
 - [ ] A deliberate TypeScript error makes CI fail.
 - [ ] Existing Api tests still pass; Api surface is unchanged.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).

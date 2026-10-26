@@ -13,3 +13,7 @@ Ctrl+K command palette over items, screens and actions (fuzzy); shortcuts from t
 ## Acceptance criteria
 
 - [ ] Every shortcut listed works in the visual test; palette finds an item by id or title in the stress dataset.
+
+## Comments
+
+Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
