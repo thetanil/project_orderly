@@ -61,7 +61,7 @@
 </div>
 
 <style>
-  ul{list-style:none;margin:8px 0 0;padding:0}
-  li{display:flex;justify-content:space-between;padding:4px 8px;border-radius:3px;cursor:pointer}
+  ul{list-style:none;margin:0.5rem 0 0;padding:0}
+  li{display:flex;justify-content:space-between;padding:0.25rem 0.5rem;border-radius:0.1875rem;cursor:pointer}
   li.active,li:hover{background:var(--sel)}
 </style>

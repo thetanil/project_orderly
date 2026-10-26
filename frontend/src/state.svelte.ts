@@ -4,6 +4,10 @@ export const LEVELS = ["businessEpic", "programObjective", "feature", "workItem"
 const EMPTY_STATUS: Status = { state: "saved", errors: 0, warnings: 0, conflicts: 0, message: null };
 
 /** All frontend state. The backend owns the data; this is only a view plus view state. */
+function num(key: string, dflt: number, lo: number, hi: number): number {
+  try { const v = parseFloat(localStorage.getItem(key) ?? ""); return v >= lo && v <= hi ? v : dflt; } catch { return dflt; }
+}
+
 export class AppState {
   loaded = $state(false);
   error = $state<string | null>(null);
@@ -19,6 +23,8 @@ export class AppState {
   conflicts = $state.raw<Conflict[]>([]);
   canUndo = $state(false);
   canRedo = $state(false);
+  zoom = $state(num("bd-zoom", 1, 0.7, 2));
+  paneW = $state(num("bd-pane", 24, 16, 60)); // inspector width in rem
   settings = $state.raw<Settings>({ currentUser: null, theme: "dark", density: "compact" });
 
   view = $state<"tree" | "problems">("tree");
@@ -306,6 +312,16 @@ export class AppState {
   applyTheme() {
     document.documentElement.dataset.theme = this.settings.theme;
     document.body.classList.toggle("comfortable", this.settings.density === "comfortable");
+    document.documentElement.style.fontSize = `${16 * this.zoom}px`;
+  }
+  setZoom(z: number) {
+    this.zoom = Math.min(2, Math.max(0.7, Math.round(z * 20) / 20));
+    this.applyTheme();
+    try { localStorage.setItem("bd-zoom", String(this.zoom)); } catch { /* private mode */ }
+  }
+  setPaneW(rem: number) {
+    this.paneW = Math.min(60, Math.max(16, rem));
+    try { localStorage.setItem("bd-pane", String(this.paneW)); } catch { /* private mode */ }
   }
   async setSetting(key: keyof Settings, value: unknown) {
     this.settings = { ...this.settings, [key]: value } as Settings;

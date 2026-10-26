@@ -48,10 +48,10 @@
 
 <style>
   section{overflow:auto;background:var(--surface)}
-  .bar{display:flex;gap:10px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface)}
+  .bar{display:flex;gap:0.625rem;align-items:center;padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface)}
   table{width:100%;border-collapse:collapse}
-  th{text-align:left;color:var(--muted);font-weight:normal;padding:4px 10px;border-bottom:1px solid var(--border)}
-  td{padding:4px 10px;border-bottom:1px solid var(--border)}
+  th{text-align:left;color:var(--muted);font-weight:normal;padding:0.25rem 0.625rem;border-bottom:1px solid var(--border)}
+  td{padding:0.25rem 0.625rem;border-bottom:1px solid var(--border)}
   tbody tr{cursor:pointer}tbody tr:hover{background:var(--hover)}
-  .empty{padding:24px}
+  .empty{padding:1.5rem}
 </style>

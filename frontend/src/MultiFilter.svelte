@@ -32,6 +32,6 @@
 <style>
   .wrap{position:relative}
   .active{border-color:var(--accent);background:var(--sel)}
-  .pop{position:absolute;top:100%;left:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:6px 10px;min-width:150px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:3px}
-  label{display:flex;gap:6px;align-items:center;white-space:nowrap}
+  .pop{position:absolute;top:100%;left:0;z-index:5;background:var(--surface);border:1px solid var(--border);border-radius:0.25rem;padding:0.375rem 0.625rem;min-width:9.375rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:0.1875rem}
+  label{display:flex;gap:0.375rem;align-items:center;white-space:nowrap}
 </style>

@@ -63,7 +63,7 @@
 <style>
   .picker{position:relative;display:block}
   input{width:100%}
-  ul{position:absolute;z-index:8;left:0;right:0;top:100%;margin:2px 0 0;padding:2px;list-style:none;background:var(--surface);border:1px solid var(--border);border-radius:4px;box-shadow:var(--shadow);max-height:240px;overflow:auto}
-  li{display:flex;justify-content:space-between;gap:10px;padding:3px 6px;cursor:pointer;border-radius:3px}
+  ul{position:absolute;z-index:8;left:0;right:0;top:100%;margin:2px 0 0;padding:2px;list-style:none;background:var(--surface);border:1px solid var(--border);border-radius:0.25rem;box-shadow:var(--shadow);max-height:15rem;overflow:auto}
+  li{display:flex;justify-content:space-between;gap:0.625rem;padding:0.1875rem 0.375rem;cursor:pointer;border-radius:0.1875rem}
   li.active,li:hover{background:var(--sel)}
 </style>

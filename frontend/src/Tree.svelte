@@ -11,7 +11,7 @@
   let drag = $state<{ id: string; targets: Set<string> } | null>(null);
   let hover = $state<{ id: string; mode: "into" | "before" | "after" } | null>(null);
 
-  const rowH = $derived(app.settings.density === "comfortable" ? 34 : 28);
+  const rowH = $derived((app.settings.density === "comfortable" ? 34 : 28) * app.zoom);
   const first = $derived(Math.max(0, Math.floor(scrollTop / rowH) - 5));
   const last = $derived(Math.min(app.rows.length, Math.ceil((scrollTop + height) / rowH) + 5));
   const visible = $derived(app.rows.slice(first, last));
@@ -158,7 +158,7 @@
         <div class="row" class:sel={app.selected.has(it.id)} class:cur={app.current === it.id} class:removed={c === "Removed"}
           class:target={drag?.targets.has(it.id)} class:into={hover?.id === it.id && hover.mode === "into"}
           class:before={hover?.id === it.id && hover.mode === "before"} class:after={hover?.id === it.id && hover.mode === "after"}
-          style:top="{(first + n) * rowH}px" style:padding-left="{8 + r.depth * 18}px" role="treeitem" aria-selected={app.selected.has(it.id)}
+          style:top="{(first + n) * rowH}px" style:padding-left="{0.5 + r.depth * 1.125}rem" role="treeitem" aria-selected={app.selected.has(it.id)}
           draggable={editing === null} ondragstart={(e) => dragstart(e, it.id)} ondragend={() => { drag = null; hover = null; }}
           ondragover={(e) => dragover(e, it.id)} ondrop={(e) => drop(e, it.id)}
           onclick={(e) => app.clickRow(it.id, e)}>
@@ -210,18 +210,18 @@
 <style>
   #tree{overflow:auto;position:relative;background:var(--surface);outline:none}
   .spacer{position:relative}
-  .row{position:absolute;left:0;right:0;height:var(--row);display:flex;align-items:center;gap:8px;padding-right:12px;white-space:nowrap;cursor:default;border-top:2px solid transparent;border-bottom:2px solid transparent}
+  .row{position:absolute;left:0;right:0;height:var(--row);display:flex;align-items:center;gap:0.5rem;padding-right:0.75rem;white-space:nowrap;cursor:default;border-top:2px solid transparent;border-bottom:2px solid transparent}
   .row:hover{background:var(--hover)}.row.sel{background:var(--sel2)}.row.cur{background:var(--sel)}
   .row.removed .title{text-decoration:line-through;color:var(--muted)}
   .row.target{outline:1px dashed var(--accent);outline-offset:-2px}
   .row.into{background:var(--sel);outline:2px solid var(--accent)}
   .row.before{border-top-color:var(--accent)}.row.after{border-bottom-color:var(--accent)}
-  .tw{width:16px;text-align:center;color:var(--muted);flex:none;cursor:pointer}
-  .id{color:var(--muted);width:120px;flex:none;overflow:hidden;text-overflow:ellipsis}
+  .tw{width:1rem;text-align:center;color:var(--muted);flex:none;cursor:pointer}
+  .id{color:var(--muted);width:7.5rem;flex:none;overflow:hidden;text-overflow:ellipsis}
   .title{flex:1;overflow:hidden;text-overflow:ellipsis}
-  .title-in{flex:1;padding:0 4px}
-  .num{width:60px;text-align:right;flex:none}.num.hint{color:var(--muted)}
-  .num-in{width:64px;flex:none;padding:0 2px}
-  .badge{width:16px;flex:none;text-align:center}.badge.E{color:var(--err)}.badge.W{color:var(--warn)}
-  .empty{padding:24px}
+  .title-in{flex:1;padding:0 0.25rem}
+  .num{width:3.75rem;text-align:right;flex:none}.num.hint{color:var(--muted)}
+  .num-in{width:4rem;flex:none;padding:0 2px}
+  .badge{width:1rem;flex:none;text-align:center}.badge.E{color:var(--err)}.badge.W{color:var(--warn)}
+  .empty{padding:1.5rem}
 </style>

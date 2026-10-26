@@ -78,7 +78,7 @@
 
     {#if ty.estimation === "forbidden"}
       {#if it.rollup}<div class="field"><label>Effort (rollup, derived)</label>
-        <div>Σ {it.rollup.storyPoints} <span class="muted">({it.rollup.estimatedCount} estimated, {it.rollup.unestimatedCount} unestimated, {it.rollup.notEstimableCount} not estimable)</span></div></div>{/if}
+        <div class="wrap">Σ {it.rollup.storyPoints} <span class="muted">({it.rollup.estimatedCount} estimated, {it.rollup.unestimatedCount} unestimated, {it.rollup.notEstimableCount} not estimable)</span></div></div>{/if}
       {#each issues("storyPoints") as i}<div class="err-text">{i.rule}: {i.message}</div>{/each}
     {:else}
       <div class="field"><label for="f-sp">Story points{ty.estimation === "required" ? " *" : ""}</label>
@@ -132,13 +132,14 @@
 </aside>
 
 <style>
-  aside{border-left:1px solid var(--border);padding:12px;overflow:auto;background:var(--bg)}
-  h2{font-size:15px;margin:0 0 8px;display:flex;gap:6px;align-items:center}
-  .row{display:flex;gap:6px;align-items:center}
+  aside{border-left:1px solid var(--border);padding:0.75rem;overflow:auto;background:var(--bg)}
+  h2{font-size:0.9375rem;margin:0 0 0.5rem;display:flex;gap:0.375rem;align-items:center}
+  .row{display:flex;gap:0.375rem;align-items:center}
   .row select{flex:1}
-  .tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px}
-  .ro{margin:0;padding:6px;background:var(--surface);border:1px solid var(--border);border-radius:4px;white-space:pre-wrap;color:var(--muted)}
-  .issue{margin-top:8px;padding:4px 8px;border-left:3px solid var(--warn);background:var(--surface)}.issue.E{border-color:var(--err)}
-  .empty{padding:24px 0}
+  .tags{display:flex;gap:0.25rem;flex-wrap:wrap;margin-bottom:0.25rem}
+  .wrap{overflow-wrap:anywhere}
+  .ro{margin:0;padding:0.375rem;background:var(--surface);border:1px solid var(--border);border-radius:0.25rem;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted)}
+  .issue{margin-top:0.5rem;padding:0.25rem 0.5rem;border-left:0.1875rem solid var(--warn);background:var(--surface)}.issue.E{border-color:var(--err)}
+  .empty{padding:1.5rem 0}
   .o-InProgress{color:#60A5FA}.o-Resolved{color:#2DD4BF}.o-Completed{color:#4ADE80}.o-Removed{color:#A1A1AA}
 </style>

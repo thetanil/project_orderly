@@ -19,9 +19,9 @@
 
   // colours come from CSS variables, so the editor follows the app's dark/light toggle
   const theme = EditorView.theme({
-    "&": { color: "var(--text)", backgroundColor: "var(--surface)", border: "1px solid var(--border)", borderRadius: "4px", maxHeight: "320px" },
+    "&": { color: "var(--text)", backgroundColor: "var(--surface)", border: "1px solid var(--border)", borderRadius: "0.25rem", maxHeight: "20rem" },
     "&.cm-focused": { outline: "2px solid var(--accent)", outlineOffset: "-1px" },
-    ".cm-content": { caretColor: "var(--text)", fontFamily: "ui-monospace, Consolas, monospace", fontSize: "12px", padding: "4px 0" },
+    ".cm-content": { caretColor: "var(--text)", fontFamily: "ui-monospace, Consolas, monospace", fontSize: "0.75rem", padding: "0.25rem 0" },
     ".cm-cursor": { borderLeftColor: "var(--text)" },
     ".cm-scroller": { overflow: "auto" },
     ".cm-selectionBackground, &.cm-focused .cm-selectionBackground": { background: "var(--sel)" },

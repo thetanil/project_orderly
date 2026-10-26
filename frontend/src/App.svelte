@@ -31,7 +31,20 @@
     return !!el && ["INPUT", "TEXTAREA"].includes(el.tagName);
   };
 
+  function startDrag(e: PointerEvent) {
+    const el = e.currentTarget as HTMLElement;
+    el.setPointerCapture(e.pointerId);
+    const move = (m: PointerEvent) => app.setPaneW((window.innerWidth - m.clientX) / (16 * app.zoom));
+    const up = () => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerup", up); };
+    el.addEventListener("pointermove", move); el.addEventListener("pointerup", up);
+  }
+
   function onkeydown(e: KeyboardEvent) {
+    if ((e.ctrlKey || e.metaKey) && ["=", "+", "-", "0"].includes(e.key)) {
+      e.preventDefault();
+      app.setZoom(e.key === "0" ? 1 : app.zoom + (e.key === "-" ? -0.1 : 0.1));
+      return;
+    }
     const mod = e.ctrlKey || e.metaKey;
     if (mod && e.key.toLowerCase() === "k") { e.preventDefault(); app.dialog = app.dialog === "palette" ? null : "palette"; return; }
     if (e.key === "Escape" && app.dialog && app.dialog !== "conflicts") { app.dialog = null; return; }
@@ -106,6 +119,9 @@
         <option value="">(me: not set)</option>
         {#each Object.values(app.people) as p}<option value={p.id}>{p.name}</option>{/each}
       </select>
+      <button onclick={() => app.setZoom(app.zoom - 0.1)} title="Smaller (Ctrl+-)">A−</button>
+      <button onclick={() => app.setZoom(1)} title="Reset zoom (Ctrl+0)">{Math.round(app.zoom * 100)}%</button>
+      <button onclick={() => app.setZoom(app.zoom + 0.1)} title="Larger (Ctrl++)">A+</button>
       <button onclick={() => app.setSetting("density", app.settings.density === "compact" ? "comfortable" : "compact")} title="Row density">
         {app.settings.density === "compact" ? "▤" : "☰"}
       </button>
@@ -116,7 +132,7 @@
 
     {#if app.view === "tree"}
       <div class="filters">
-        <input bind:this={filterEl} placeholder="Filter title / id…  ( / )" style="width:240px"
+        <input bind:this={filterEl} placeholder="Filter title / id…  ( / )" style="width:15rem"
           bind:value={app.filter} oninput={() => app.rebuild()} />
         <MultiFilter label="Type" options={typeOptions} selected={app.fTypes} onchange={(s) => { app.fTypes = s; app.rebuild(); }} />
         <MultiFilter label="State" options={stateOptions} selected={app.fStates} onchange={(s) => { app.fStates = s; app.rebuild(); }} />
@@ -128,8 +144,11 @@
         <button onclick={() => app.expandAll()}>Expand all</button>
         <button onclick={() => app.collapseAll()}>Collapse all</button>
       </div>
-      <main>
+      <main style:grid-template-columns="1fr 6px {app.paneW}rem">
         <Tree />
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+        <div class="split" role="separator" aria-orientation="vertical" tabindex="0" title="Drag to resize (double-click to reset)"
+          onpointerdown={startDrag} ondblclick={() => app.setPaneW(24)}></div>
         <Inspector />
       </main>
     {:else}
@@ -154,16 +173,18 @@
 
 <style>
   .center{height:100%;display:flex;align-items:center;justify-content:center}
-  .errbox{max-width:560px;padding:20px;border:1px solid var(--err);border-radius:8px;background:var(--surface)}
+  .errbox{max-width:35rem;padding:1.25rem;border:1px solid var(--err);border-radius:0.5rem;background:var(--surface)}
   .errbox h2{margin-top:0;color:var(--err)}
   .shell{height:100%;display:grid;grid-template-rows:auto auto 1fr auto}
-  header,.filters{display:flex;gap:10px;align-items:center;padding:6px 12px;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap}
-  .filters{padding:4px 12px;background:var(--bg)}
+  header,.filters{display:flex;gap:0.625rem;align-items:center;padding:0.375rem 0.75rem;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap}
+  .filters{padding:0.25rem 0.75rem;background:var(--bg)}
   .grow{flex:1}
   nav{display:flex;gap:2px}
   nav button.on{background:var(--sel);border-color:var(--accent)}
-  main{display:grid;grid-template-columns:1fr 360px;min-height:0}
+  main{display:grid;min-height:0}
+  .split{cursor:col-resize;background:var(--border);opacity:.5}
+  .split:hover{background:var(--accent);opacity:1}
   main.single{grid-template-columns:1fr}
-  footer{display:flex;gap:16px;padding:4px 12px;border-top:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px}
-  label{display:inline-flex;gap:4px;align-items:center}
+  footer{display:flex;gap:1rem;padding:0.25rem 0.75rem;border-top:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:0.75rem}
+  label{display:inline-flex;gap:0.25rem;align-items:center}
 </style>

@@ -7,7 +7,7 @@
 </script>
 
 <div class="overlay">
-  <div class="modal" style="width:min(720px,94vw)">
+  <div class="modal" style="width:min(45rem,94vw)">
     <h2>The file changed on disk</h2>
     <p class="muted">Everything else was merged. These fields were changed on both sides. Saving is paused until each is resolved.</p>
     {#each app.conflicts as c}
@@ -24,7 +24,7 @@
 </div>
 
 <style>
-  .c{border-top:1px solid var(--border);padding:8px 0}
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:6px;border-radius:4px;max-height:120px;overflow:auto;margin:2px 0 6px}
+  .c{border-top:1px solid var(--border);padding:0.5rem 0}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+  pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);padding:0.375rem;border-radius:0.25rem;max-height:7.5rem;overflow:auto;margin:2px 0 0.375rem}
 </style>
