@@ -49,5 +49,6 @@ def main(args: List[str]) -> int:
         return 1
     api = open_store(ns.file, ns.stress)
     webview.create_window("Backlog Desk", str(UI_DIR / "index.html"), js_api=api, width=1280, height=800)
-    webview.start(debug=ns.debug)
+    # The linux extra installs Qt; asking for it skips pywebview's noisy GTK probe (needs system PyGObject).
+    webview.start(debug=ns.debug, gui="qt" if sys.platform.startswith("linux") else None)
     return 0
