@@ -21,8 +21,13 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Optional[List[str]] = None) -> int:
+    argv = sys.argv[1:] if argv is None else list(argv)
+    if argv and argv[0] in commands():
+        # Pass everything after the command through untouched (argparse's REMAINDER
+        # mishandles a leading option such as `po gui --stress 3000`).
+        return run_command(argv[0], argv[1:])
     parser = build_parser()
-    ns = parser.parse_args(sys.argv[1:] if argv is None else argv)
+    ns = parser.parse_args(argv)
     if not ns.command:
         parser.print_help()
         return 0

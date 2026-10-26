@@ -132,33 +132,32 @@ class Store:
 
 
 def stress_data(base: Dict[str, Any], n: int, seed: int = 1) -> Dict[str, Any]:
-    """Generate ~n items under the base model for performance checks."""
+    """Generate exactly n items (n >= 1) under the base model for performance checks."""
     rnd = random.Random(seed)
+    types = base["model"]["types"]
     items: Dict[str, Any] = {}
-    states = ["New", "Active", "Resolved", "Closed"]
-    count = 0
+
+    def add(iid: str, type_: str, title: str, parent: Optional[str], rank: int, **extra: Any) -> bool:
+        if len(items) >= n:
+            return False
+        state = extra.pop("state", None) or rnd.choice(list(types[type_]["states"]))
+        items[iid] = dict(id=iid, type=type_, title=title, state=state, parent=parent, rank=rank, **extra)
+        return True
+
     e = 0
-    while count < n:
+    while len(items) < n:
         e += 1
         eid = f"ado-e{e}"
-        items[eid] = dict(id=eid, type="businessEpic", title=f"Epic {e}", state="Active", parent=None, rank=e)
-        count += 1
+        add(eid, "businessEpic", f"Epic {e}", None, e, state="Active")
         for p in range(4):
             pid = f"{eid}-p{p}"
-            items[pid] = dict(id=pid, type="programObjective", title=f"Objective {e}.{p}", state="Active", parent=eid, rank=p)
-            count += 1
+            add(pid, "programObjective", f"Objective {e}.{p}", eid, p, state="Active")
             for f in range(5):
                 fid = f"{pid}-f{f}"
-                items[fid] = dict(id=fid, type="feature", title=f"Feature {e}.{p}.{f}", state="Active", parent=pid, rank=f)
-                count += 1
+                add(fid, "feature", f"Feature {e}.{p}.{f}", pid, f, state="Active")
                 for w in range(rnd.randint(3, 8)):
-                    wid = f"{fid}-w{w}"
                     prob = rnd.random() < 0.15
-                    items[wid] = dict(
-                        id=wid, type="problem" if prob else "story", parent=fid, rank=w,
-                        title=f"{'Problem' if prob else 'Story'} {e}.{p}.{f}.{w}",
-                        state=rnd.choice(states), priority=rnd.randint(1, 4),
-                        storyPoints=None if prob or rnd.random() < 0.2 else rnd.choice([1, 2, 3, 5, 8]),
-                    )
-                    count += 1
+                    sp = None if prob or rnd.random() < 0.2 else rnd.choice([1, 2, 3, 5, 8])
+                    add(f"{fid}-w{w}", "problem" if prob else "story", f"{'Problem' if prob else 'Story'} {e}.{p}.{f}.{w}",
+                        fid, w, state=rnd.choice(["New", "Active", "Closed"]), priority=rnd.randint(1, 4), storyPoints=sp)
     return dict(model=base["model"], iterations=base.get("iterations", {}), items=items)

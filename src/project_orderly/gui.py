@@ -50,7 +50,11 @@ class Api:
 def load_store(path: Optional[str], stress: int) -> "tuple[Store, Optional[Path]]":
     sample = json.loads((UI_DIR / "sample_backlog.json").read_text(encoding="utf-8"))
     if path:
-        return Store.open(Path(path)), Path(path)
+        p = Path(path)
+        if p.exists():
+            return Store.open(p), p
+        print(f"{p} does not exist; starting from the sample (Save will create it)", file=sys.stderr)
+        return Store(sample), p
     if stress:
         return Store(stress_data(sample, stress)), None
     return Store(sample), None

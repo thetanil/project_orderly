@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Backlog Desk</title>
 <style>
-:root{--bg:#FAFAF9;--surface:#fff;--border:#E4E4E7;--text:#18181B;--muted:#71717A;--accent:#2563EB;--ok:#16A34A;--warn:#D97706;--err:#DC2626;--sel:#E8F0FE;--hover:#F4F4F5;--row:28px}
-@media(prefers-color-scheme:dark){:root{--bg:#18181B;--surface:#202024;--border:#33333A;--text:#F4F4F5;--muted:#A1A1AA;--accent:#60A5FA;--ok:#4ADE80;--warn:#FBBF24;--err:#F87171;--sel:#1E2A44;--hover:#2A2A30}}
+:root{color-scheme:dark;--bg:#18181B;--surface:#202024;--border:#33333A;--text:#F4F4F5;--muted:#A1A1AA;--accent:#60A5FA;--ok:#4ADE80;--warn:#FBBF24;--err:#F87171;--sel:#1E2A44;--hover:#2A2A30;--row:28px}
+:root[data-theme=light]{color-scheme:light;--bg:#FAFAF9;--surface:#fff;--border:#E4E4E7;--text:#18181B;--muted:#71717A;--accent:#2563EB;--ok:#16A34A;--warn:#D97706;--err:#DC2626;--sel:#E8F0FE;--hover:#F4F4F5}
 body.comfortable{--row:34px}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -47,10 +47,12 @@ footer .grow{flex:1}.ok{color:var(--ok)}.err{color:var(--err)}.warn{color:var(--
 <header>
   <strong>Backlog Desk</strong>
   <input id="filter" placeholder="Filter title / id…  ( / )" style="width:260px">
+  <button id="expandAll">Expand all</button> <button id="collapseAll">Collapse all</button>
   <label><input type="checkbox" id="showRemoved"> Show removed</label>
   <label><input type="checkbox" id="comfy"> Comfortable</label>
   <span class="grow"></span>
   <span id="dirty" class="muted"></span>
+  <button id="theme" title="Toggle theme">☀</button>
   <button id="save">Save (Ctrl+S)</button>
 </header>
 <main>
@@ -213,7 +215,15 @@ document.addEventListener("keydown", e => {
 $("filter").addEventListener("input", e => { S.filter = e.target.value; refresh(); });
 $("showRemoved").addEventListener("change", e => { S.showRemoved = e.target.checked; refresh(); });
 $("comfy").addEventListener("change", e => { document.body.classList.toggle("comfortable", e.target.checked); refresh(); });
+$("expandAll").addEventListener("click", () => { for(const [id,k] of S.kids) if(id && k.length) S.expanded.add(id); refresh(); });
+$("collapseAll").addEventListener("click", () => { S.expanded.clear(); refresh(); });
 $("save").addEventListener("click", save);
+function setTheme(t){
+  document.documentElement.dataset.theme = t; $("theme").textContent = t==="dark" ? "☀" : "☾";
+  try{ localStorage.setItem("theme", t); }catch(e){}
+}
+$("theme").addEventListener("click", () => setTheme(document.documentElement.dataset.theme==="light" ? "dark" : "light"));
+try{ setTheme(localStorage.getItem("theme")==="light" ? "light" : "dark"); }catch(e){ setTheme("dark"); }
 async function save(){
   const r = await api("save");
   if(r.ok) setDirty(false); else alert(r.error);

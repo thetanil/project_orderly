@@ -26,6 +26,17 @@ def test_update_recomputes_ancestors_and_validates():
     assert any(i["rule"] == "R9" for i in s.issues())
 
 
-def test_stress_data_loads():
+def test_stress_data_is_exact_and_valid():
     s = Store(stress_data(SAMPLE, 3000))
-    assert len(s.items) >= 3000
+    assert len(s.items) == 3000
+    assert [i for i in s.issues() if i["level"] == "E"] == []
+
+
+def test_missing_file_starts_from_sample_and_save_creates_it(tmp_path):
+    from project_orderly.gui import load_store
+
+    path = tmp_path / "new.json"
+    store, p = load_store(str(path), 0)
+    assert p == path and not path.exists()
+    store.save(p)
+    assert len(Store.open(path).items) == len(SAMPLE["items"])
