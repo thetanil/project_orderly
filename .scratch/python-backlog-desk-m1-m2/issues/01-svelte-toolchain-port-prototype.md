@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: ready-for-human
 Blocked by: none
 Spec: ../spec.md
 
@@ -21,4 +21,4 @@ Pipeline: CI installs Node, type-checks and builds the frontend before `uv build
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 4 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).

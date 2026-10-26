@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: done
 Blocked by: 03, 04
 Spec: ../spec.md
 
@@ -18,9 +18,9 @@ The merge is applied as one batch operation (one undo step), followed by rollup 
 
 ## Acceptance criteria
 
-- [ ] Api tests: an external edit to item A and a local edit to item B both survive; an external and a local edit to different fields of the same item both survive; the same field edited on both sides yields a conflict and the file is not written until it is resolved; external edit with no local changes reloads; undo reverts the merge in one step.
-- [ ] Rollups are recomputed after the merge (an agent adding a story updates its feature's rollup).
+- [x] Api tests: an external edit to item A and a local edit to item B both survive; an external and a local edit to different fields of the same item both survive; the same field edited on both sides yields a conflict and the file is not written until it is resolved; external edit with no local changes reloads; undo reverts the merge in one step.
+- [x] Rollups are recomputed after the merge (an agent adding a story updates its feature's rollup).
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them.

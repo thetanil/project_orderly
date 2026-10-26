@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: ready-for-human
 Blocked by: 01, 15
 Spec: ../spec.md
 
@@ -12,9 +12,9 @@ Add filter chips for type, state and iteration and a "Mine" toggle; text filter 
 
 ## Acceptance criteria
 
-- [ ] Api test: the current-user setting persists across reopen and never appears in the store file.
+- [x] Api test: the current-user setting persists across reopen and never appears in the store file.
 - [ ] Filtering never changes data; with 3000 stress items filter updates stay under one frame budget (visible in the perf readout).
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).

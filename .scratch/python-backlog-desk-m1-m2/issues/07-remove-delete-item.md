@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: done
 Blocked by: 04
 Spec: ../spec.md
 
@@ -12,8 +12,8 @@ Remove on an item with a `remotes` entry sets a Removed-category state (never de
 
 ## Acceptance criteria
 
-- [ ] Api tests: delete of a synced item is refused and Removed is set instead; delete of `new-*` removes it; undo restores both; rollups recomputed.
+- [x] Api tests: delete of a synced item is refused and Removed is set instead; delete of `new-*` removes it; undo restores both; rollups recomputed.
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them.

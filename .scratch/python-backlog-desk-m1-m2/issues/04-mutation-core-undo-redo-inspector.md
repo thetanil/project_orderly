@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: ready-for-human
 Blocked by: 01, 02
 Spec: ../spec.md
 
@@ -12,9 +12,9 @@ Introduce one mutation operation type (set field, and later create/remove/move) 
 
 ## Acceptance criteria
 
-- [ ] Api tests: edit returns item plus ancestors with updated rollups; undo/redo round-trips to a byte-identical store; attempts to set `remotes`/`rollup` are rejected.
+- [x] Api tests: edit returns item plus ancestors with updated rollups; undo/redo round-trips to a byte-identical store; attempts to set `remotes`/`rollup` are rejected.
 - [ ] Inline edit in a tree row works for title, state, priority and story points.
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).

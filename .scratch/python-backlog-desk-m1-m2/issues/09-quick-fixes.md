@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: ready-for-human
 Blocked by: 02, 04, 05, 06, 07, 08, 12
 Spec: ../spec.md
 
@@ -17,4 +17,4 @@ Implement quick fixes from the UI spec table for rules whose fix is in scope: R4
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 2 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).

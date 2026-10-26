@@ -28,3 +28,12 @@ Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 - **Frontier**: scan `.scratch/<effort>/issues/` for files that are open, unblocked, and unclaimed; first by number wins.
 - **Claim**: set `Status: claimed` and save before any work.
 - **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+
+## Closing an implementation issue
+
+When an agent finishes work on an issue, it updates the file before committing:
+
+- Tick `- [x]` only the acceptance criteria that an automated test or CI run demonstrates. A criterion that needs a person (real window, visual or desktop check, anything not run in CI) stays `- [ ]`; never tick on the strength of "the code looks right".
+- Set `Status: done` when every box is ticked.
+- Otherwise set `Status: ready-for-human`, and say in `## Comments` which criteria remain and what to check.
+- Never leave `ready-for-agent` on an issue that has been worked.

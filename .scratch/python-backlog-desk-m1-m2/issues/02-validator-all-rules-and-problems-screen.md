@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: ready-for-human
 Blocked by: 01, 03, 15
 Spec: ../spec.md
 
@@ -12,10 +12,10 @@ Extract validation into a pure Validator returning issues with rule, level, item
 
 ## Acceptance criteria
 
-- [ ] Each implemented rule has a failing and a passing Api-level test, including the schema document's example store being valid.
+- [x] Each implemented rule has a failing and a passing Api-level test, including the schema document's example store being valid.
 - [ ] Problems screen lists, filters and jumps to items; status bar counts match the list.
-- [ ] Rules needing the previous valid store (R24, R25) are tested against the last-valid snapshot from issue 03, and are skipped cleanly when no snapshot exists.
+- [x] Rules needing the previous valid store (R24, R25) are tested against the last-valid snapshot from issue 03, and are skipped cleanly when no snapshot exists.
 
 ## Comments
 
-Implemented on branch main (backend tests under `tests/`; frontend type-checked, built and driven in a headless browser against the real Api; not yet judged on the owner's desktop).
+Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
