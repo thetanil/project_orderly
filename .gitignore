@@ -223,3 +223,4 @@ __marimo__/
 src/project_orderly/ui/
 frontend/node_modules/
 .backlogdesk/
+/my.json
