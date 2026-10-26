@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick } from "svelte";
+  import { tick, untrack } from "svelte";
   import { app } from "./state.svelte";
   import type { Item } from "./types";
 
@@ -16,13 +16,17 @@
   const last = $derived(Math.min(app.rows.length, Math.ceil((scrollTop + height) / rowH) + 5));
   const visible = $derived(app.rows.slice(first, last));
 
+  // Only a new scroll request may move the viewport; reading scrollTop/height/rowH here
+  // would re-run this on every scroll and snap the tree back to the selected row.
   $effect(() => {
     const r = app.scrollRequest;
     if (!r) return;
-    const i = app.rows.findIndex((x) => x.id === r.id);
-    if (i < 0) return;
-    if (i * rowH < scrollTop) box.scrollTop = i * rowH;
-    else if ((i + 1) * rowH > scrollTop + height) box.scrollTop = (i + 1) * rowH - height;
+    untrack(() => {
+      const i = app.rows.findIndex((x) => x.id === r.id);
+      if (i < 0) return;
+      if (i * rowH < scrollTop) box.scrollTop = i * rowH;
+      else if ((i + 1) * rowH > scrollTop + height) box.scrollTop = (i + 1) * rowH - height;
+    });
   });
 
   function focusSelect(node: HTMLInputElement | HTMLSelectElement) {
