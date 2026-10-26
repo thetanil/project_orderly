@@ -2,8 +2,12 @@
 
 Pure-Python library and `po` CLI, publishable to PyPI.
 
+Run it straight from a release wheel (no checkout, no Node; the GUI needs the `gui` extra):
+
 ```
-uvx --from "project-orderly @ https://github.com/thetanil/project_orderly/releases/download/v0.1.0/project_orderly-0.1.0-py3-none-any.whl" po test
+W=https://github.com/thetanil/project_orderly/releases/download/v0.1.0/project_orderly-0.1.0-py3-none-any.whl
+uvx --from "project-orderly[gui] @ $W" po gui backlog.json      # created on the first change if missing
+uvx --from "project-orderly @ $W" po validate backlog.json      # headless, base install
 ```
 
 Use from a PEP 723 script (see `examples/hello.py`):
@@ -38,7 +42,7 @@ Node (20.19+ or 22) is needed **for development only**; the wheel ships the buil
 ```
 uv run --extra gui po gui                 # built-in sample (kept in memory)
 uv run --extra gui po gui --stress 3000   # exactly 3000 generated valid items, to judge performance
-uv run --extra gui po gui my.json --debug # your file (created on the first change if missing), with web inspector
+uv run --extra gui po gui backlog.json --debug # your file (created on the first change if missing), with web inspector
 ```
 
 The command builds the frontend first when `frontend/` sources are newer than the build. To iterate on
@@ -66,7 +70,7 @@ Each push to `main` (incl. merged PRs) replaces the `latest` prerelease with a f
 
 ```
 d=$(mktemp -d) && gh release download latest -R thetanil/project_orderly -p '*.whl' -D "$d" \
-  && uvx --from "project-orderly[gui] @ file://$(ls -t "$d"/*.whl | head -1)" po gui my.json
+  && uvx --from "project-orderly[gui] @ file://$(ls -t "$d"/*.whl | head -1)" po gui backlog.json
 ```
 
 ### Validate after every change (for agents)
