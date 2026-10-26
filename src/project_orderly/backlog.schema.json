@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thetanil/project_orderly/backlog.schema.json",
+  "title": "Backlog Desk store v2",
+  "description": "Structural schema for a Backlog Desk store file. Semantic rules (R1-R25) are checked by `po validate`.",
+  "type": "object",
+  "required": ["schemaVersion", "model", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "type": "string", "pattern": "^2\\.[0-9]+\\.[0-9]+$" },
+    "project": {
+      "type": "object",
+      "properties": { "name": { "type": "string" } },
+      "additionalProperties": true
+    },
+    "model": { "$ref": "#/$defs/model" },
+    "people": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/person" }
+    },
+    "iterations": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/iteration" }
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "category": { "enum": ["Proposed", "InProgress", "Resolved", "Completed", "Removed"] },
+    "level": { "enum": ["businessEpic", "programObjective", "feature", "workItem"] },
+    "markdown": { "type": "string", "description": "GFM Markdown, never HTML." },
+    "model": {
+      "type": "object",
+      "required": ["types"],
+      "additionalProperties": false,
+      "properties": {
+        "types": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["level", "label", "color", "estimation", "priority", "states"],
+            "additionalProperties": false,
+            "properties": {
+              "level": { "$ref": "#/$defs/level" },
+              "label": { "type": "string" },
+              "color": { "type": "string" },
+              "estimation": { "enum": ["forbidden", "optional", "required"] },
+              "priority": { "enum": ["optional", "required"] },
+              "states": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": { "$ref": "#/$defs/category" }
+              }
+            }
+          }
+        },
+        "customFields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": { "label": { "type": "string" }, "type": { "enum": ["string", "number", "boolean"] } },
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "person": {
+      "type": "object",
+      "required": ["id", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" }
+      }
+    },
+    "iteration": {
+      "type": "object",
+      "required": ["id", "name", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "path": { "type": "string" },
+        "startDate": { "type": "string" },
+        "finishDate": { "type": "string" }
+      }
+    },
+    "rollup": {
+      "type": "object",
+      "description": "Derived. Always overwritten by the recomputed value.",
+      "required": ["storyPoints", "estimatedCount", "unestimatedCount", "notEstimableCount"],
+      "additionalProperties": false,
+      "properties": {
+        "storyPoints": { "type": "number" },
+        "estimatedCount": { "type": "integer", "minimum": 0 },
+        "unestimatedCount": { "type": "integer", "minimum": 0 },
+        "notEstimableCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "remotes": {
+      "type": "object",
+      "description": "Sync-owned. Read-only in the GUI.",
+      "additionalProperties": false,
+      "properties": {
+        "ado": {
+          "type": "object",
+          "required": ["id"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "integer" },
+            "rev": { "type": "integer" },
+            "url": { "type": "string" },
+            "syncedAt": { "type": "string" },
+            "richTextHashes": {
+              "type": "object",
+              "description": "Reserved for M4: hash of the remote HTML per rich-text field at last sync.",
+              "additionalProperties": { "type": "string" }
+            },
+            "base": { "type": "object" },
+            "conflicts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["field"],
+                "properties": { "field": { "type": "string" } },
+                "additionalProperties": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": ["id", "type", "title", "state", "rank"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "state": { "type": "string" },
+        "parent": { "type": ["string", "null"] },
+        "rank": { "type": "number" },
+        "iteration": { "type": "string" },
+        "areaPath": { "type": "string" },
+        "assignedTo": { "type": "string" },
+        "priority": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "storyPoints": { "type": "number", "minimum": 0 },
+        "description": { "$ref": "#/$defs/markdown" },
+        "acceptanceCriteria": { "$ref": "#/$defs/markdown" },
+        "localNotes": { "$ref": "#/$defs/markdown" },
+        "tags": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "businessValue": { "type": "number" },
+        "timeCriticality": { "type": "number" },
+        "targetDate": { "type": "string" },
+        "custom": { "type": "object" },
+        "rollup": { "$ref": "#/$defs/rollup" },
+        "remotes": { "$ref": "#/$defs/remotes" }
+      }
+    }
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "2.0.0",
+  "project": {
+    "name": "Payments"
+  },
+  "model": {
+    "types": {
+      "businessEpic": {
+        "level": "businessEpic",
+        "label": "Epic",
+        "color": "#FF7B00",
+        "estimation": "forbidden",
+        "priority": "optional",
+        "states": {
+          "New": "Proposed",
+          "Active": "InProgress",
+          "Done": "Completed",
+          "Removed": "Removed"
+        }
+      },
+      "programObjective": {
+        "level": "programObjective",
+        "label": "Objective",
+        "color": "#5C6BC0",
+        "estimation": "forbidden",
+        "priority": "optional",
+        "states": {
+          "New": "Proposed",
+          "Active": "InProgress",
+          "Done": "Completed",
+          "Removed": "Removed"
+        }
+      },
+      "feature": {
+        "level": "feature",
+        "label": "Feature",
+        "color": "#773B93",
+        "estimation": "forbidden",
+        "priority": "optional",
+        "states": {
+          "New": "Proposed",
+          "Active": "InProgress",
+          "Resolved": "Resolved",
+          "Closed": "Completed",
+          "Removed": "Removed"
+        }
+      },
+      "story": {
+        "level": "workItem",
+        "label": "Story",
+        "color": "#009CCC",
+        "estimation": "required",
+        "priority": "optional",
+        "states": {
+          "New": "Proposed",
+          "Active": "InProgress",
+          "Resolved": "Resolved",
+          "Closed": "Completed",
+          "Removed": "Removed"
+        }
+      },
+      "problem": {
+        "level": "workItem",
+        "label": "Problem",
+        "color": "#E06C00",
+        "estimation": "forbidden",
+        "priority": "required",
+        "states": {
+          "New": "Proposed",
+          "Active": "InProgress",
+          "Closed": "Completed",
+          "Removed": "Removed"
+        }
+      },
+      "bug": {
+        "level": "workItem",
+        "label": "Bug",
+        "color": "#CC293D",
+        "estimation": "optional",
+        "priority": "optional",
+        "states": {
+          "New": "Proposed",
+          "Active": "InProgress",
+          "Resolved": "Resolved",
+          "Closed": "Completed",
+          "Removed": "Removed"
+        }
+      }
+    }
+  },
+  "people": {
+    "nick": {
+      "id": "nick",
+      "name": "Nick Hildebrant"
+    },
+    "ada": {
+      "id": "ada",
+      "name": "Ada Lovelace"
+    },
+    "grace": {
+      "id": "grace",
+      "name": "Grace Hopper"
+    }
+  },
+  "iterations": {
+    "pi26-4-s1": {
+      "id": "pi26-4-s1",
+      "name": "Sprint 1",
+      "path": "Payments\\PI 26.4\\Sprint 1",
+      "startDate": "2026-10-05",
+      "finishDate": "2026-10-16"
+    },
+    "pi26-4-s2": {
+      "id": "pi26-4-s2",
+      "name": "Sprint 2",
+      "path": "Payments\\PI 26.4\\Sprint 2",
+      "startDate": "2026-10-19",
+      "finishDate": "2026-10-30"
+    }
+  },
+  "items": {
+    "ado-100": {
+      "id": "ado-100",
+      "type": "businessEpic",
+      "title": "Self-service checkout",
+      "state": "Active",
+      "parent": null,
+      "rank": 1,
+      "remotes": {
+        "ado": {
+          "id": 100,
+          "rev": 1
+        }
+      },
+      "rollup": {
+        "storyPoints": 8,
+        "estimatedCount": 2,
+        "unestimatedCount": 0,
+        "notEstimableCount": 1
+      }
+    },
+    "ado-200": {
+      "id": "ado-200",
+      "type": "programObjective",
+      "title": "Cut checkout drop-off by 15%",
+      "state": "Active",
+      "parent": "ado-100",
+      "rank": 1,
+      "remotes": {
+        "ado": {
+          "id": 200,
+          "rev": 1
+        }
+      },
+      "rollup": {
+        "storyPoints": 8,
+        "estimatedCount": 2,
+        "unestimatedCount": 0,
+        "notEstimableCount": 1
+      }
+    },
+    "ado-300": {
+      "id": "ado-300",
+      "type": "feature",
+      "title": "One-click card payment",
+      "state": "Active",
+      "parent": "ado-200",
+      "rank": 1,
+      "description": "Let returning customers pay with a stored card in one click.",
+      "remotes": {
+        "ado": {
+          "id": 300,
+          "rev": 1
+        }
+      },
+      "rollup": {
+        "storyPoints": 8,
+        "estimatedCount": 2,
+        "unestimatedCount": 0,
+        "notEstimableCount": 1
+      }
+    },
+    "ado-301": {
+      "id": "ado-301",
+      "type": "story",
+      "title": "Store tokenized card",
+      "state": "Active",
+      "parent": "ado-300",
+      "rank": 2,
+      "priority": 2,
+      "storyPoints": 5,
+      "iteration": "pi26-4-s1",
+      "remotes": {
+        "ado": {
+          "id": 301,
+          "rev": 1
+        }
+      },
+      "assignedTo": "ada",
+      "tags": [
+        "payments",
+        "tokens"
+      ],
+      "acceptanceCriteria": "- Card is tokenized by the PSP\n- Raw card numbers never stored"
+    },
+    "ado-302": {
+      "id": "ado-302",
+      "type": "story",
+      "title": "Pay with stored card",
+      "state": "New",
+      "parent": "ado-300",
+      "rank": 3,
+      "priority": 2,
+      "storyPoints": 3,
+      "iteration": "pi26-4-s1",
+      "remotes": {
+        "ado": {
+          "id": 302,
+          "rev": 1
+        }
+      },
+      "assignedTo": "nick"
+    },
+    "ado-303": {
+      "id": "ado-303",
+      "type": "problem",
+      "title": "3DS timeout on mobile",
+      "state": "Active",
+      "parent": "ado-300",
+      "rank": 1,
+      "priority": 1,
+      "iteration": "pi26-4-s1",
+      "remotes": {
+        "ado": {
+          "id": 303,
+          "rev": 1
+        }
+      }
+    },
+    "new-refund-flow": {
+      "id": "new-refund-flow",
+      "type": "story",
+      "title": "Refund to stored card",
+      "state": "Removed",
+      "parent": "ado-300",
+      "rank": 4,
+      "priority": 3,
+      "storyPoints": 8
+    }
+  }
+}

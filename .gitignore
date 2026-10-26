@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Backlog Desk
+src/project_orderly/ui/
+frontend/node_modules/
+.backlogdesk/

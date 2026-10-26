@@ -9,7 +9,7 @@ description = "Project Orderly: a pure-Python library and the `po` CLI."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
-dependencies = []
+dependencies = ["jsonschema>=4.17"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
@@ -26,6 +26,10 @@ Homepage = "https://github.com/thetanil/project_orderly"
 
 [project.scripts]
 po = "project_orderly.cli:main"
+
+[tool.hatch.build]
+# the built frontend is not committed (gitignored) but must ship in the wheel
+artifacts = ["src/project_orderly/ui/**"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/project_orderly"]

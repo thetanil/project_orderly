@@ -60,3 +60,10 @@ def gui(args: List[str]) -> int:
     from .gui import main
 
     return main(args)
+
+
+@register("validate", help="Validate a backlog store file (for agents): po validate FILE [--previous SNAPSHOT] [--json].")
+def validate(args: List[str]) -> int:
+    from .validate_cmd import main
+
+    return main(args)
