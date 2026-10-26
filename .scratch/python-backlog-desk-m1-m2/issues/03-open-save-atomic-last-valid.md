@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 01, 15
 Spec: ../spec.md
 
@@ -15,8 +15,8 @@ Remove the Save button and Ctrl+S. After every mutation (debounced while typing)
 ## Acceptance criteria
 
 - [x] Api tests: a mutation that introduces an E-level issue does not touch the file and a later fixing mutation writes it; a store with stale rollups is rewritten with correct rollups on load; simulated failure between temp write and rename leaves the old file byte-identical; `.backlogdesk/last-valid.json` appears after a save and `backlog.json` contains no app state.
-- [ ] Opening a corrupt file shows a readable message and does not crash the window.
+- [x] Opening a corrupt file shows a readable message and does not crash the window.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_autosave.py`, `tests/test_schema_and_open.py`, `tests/ui/test_shell_and_open.py` (corrupt file and missing schemaVersion in the window).

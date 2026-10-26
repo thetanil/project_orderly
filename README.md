@@ -59,10 +59,16 @@ the next/previous parent, `Del` remove (`Shift+Del` delete a never-synced item),
 ### Run the tests
 
 ```
-uv run --with pytest pytest -q
+uv run --with pytest --with jsonschema --with-editable . pytest -q          # Api, CLI, rules: no browser needed
+(cd frontend && npm ci && npm run build)                                      # once, for the browser tests
+uv run --with pytest --with playwright --with-editable . pytest -q tests/ui   # the built UI in headless Chromium
 ```
 
-Tests drive the `Api` object (the one seam the frontend uses) against real files in a temp dir; no window is started.
+Backend tests drive the `Api` object (the one seam the frontend uses) against temp files. `tests/ui` serves the
+built frontend with a tiny shim that forwards every `pywebview.api` call to the same `Api`, so the real UI code
+runs against the real backend with no window. `tests/test_frontend_gates.py` proves a TypeScript error fails the
+type-check and `tests/test_wheel.py` installs the wheel in a Node-free venv. Locally the browser tests skip when
+Playwright or the build is missing; in CI (`CI=true`) that is a failure.
 
 ### Run the latest main on your desktop
 

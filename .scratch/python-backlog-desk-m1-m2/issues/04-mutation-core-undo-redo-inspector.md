@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 01, 02
 Spec: ../spec.md
 
@@ -13,8 +13,8 @@ Introduce one mutation operation type (set field, and later create/remove/move) 
 ## Acceptance criteria
 
 - [x] Api tests: edit returns item plus ancestors with updated rollups; undo/redo round-trips to a byte-identical store; attempts to set `remotes`/`rollup` are rejected.
-- [ ] Inline edit in a tree row works for title, state, priority and story points.
+- [x] Inline edit in a tree row works for title, state, priority and story points.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_mutations.py`, `tests/ui/test_shell_and_open.py` (inline edit of title, state, priority, points).

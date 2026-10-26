@@ -17,4 +17,4 @@ Shift/Ctrl-click multi-select in the tree and a bulk panel for state, iteration,
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them.
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_bulk_settings_completion.py`, `tests/ui/test_structure_bulk_filters.py`.

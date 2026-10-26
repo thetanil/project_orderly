@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 04, 05, 06
 Spec: ../spec.md
 
@@ -13,8 +13,8 @@ Add the in-memory completion index (items, people, iterations, tags) with fuzzy 
 ## Acceptance criteria
 
 - [x] Api test: suggest returns ranked results for each kind; results for 3000 items arrive in under about 20 ms (measured in a test with a generous bound).
-- [ ] Typing `#` and `@` in the editor offers matching entries.
+- [x] Typing `#` and `@` in the editor offers matching entries.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_bulk_settings_completion.py`, `tests/ui/test_editor.py` (# and @).

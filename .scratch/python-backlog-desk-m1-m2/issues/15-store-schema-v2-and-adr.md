@@ -20,4 +20,4 @@ Record an ADR in `docs/adr/0001-…`: v2 shape and numbering (R14–R16 → R23�
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them.
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_schema_and_open.py`, `docs/adr/0001-store-v2-shape-and-conventions.md`.

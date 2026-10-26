@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 02, 04, 05, 06, 07, 08, 12
 Spec: ../spec.md
 
@@ -12,9 +12,9 @@ Implement quick fixes from the UI spec table for rules whose fix is in scope: R4
 
 ## Acceptance criteria
 
-- [ ] Api test per quick fix: the issue disappears and no new E-level issue appears.
-- [ ] Problems screen shows a Fix button only where a fix exists.
+- [x] Api test per quick fix: the issue disappears and no new E-level issue appears.
+- [x] Problems screen shows a Fix button only where a fix exists.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 2 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_quick_fixes.py`, `tests/ui/test_problems_and_fixes.py`.

@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 01, 03, 15
 Spec: ../spec.md
 
@@ -13,9 +13,9 @@ Extract validation into a pure Validator returning issues with rule, level, item
 ## Acceptance criteria
 
 - [x] Each implemented rule has a failing and a passing Api-level test, including the schema document's example store being valid.
-- [ ] Problems screen lists, filters and jumps to items; status bar counts match the list.
+- [x] Problems screen lists, filters and jumps to items; status bar counts match the list.
 - [x] Rules needing the previous valid store (R24, R25) are tested against the last-valid snapshot from issue 03, and are skipped cleanly when no snapshot exists.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_validator_rules.py`, `tests/ui/test_problems_and_fixes.py`.

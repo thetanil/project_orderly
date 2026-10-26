@@ -17,4 +17,4 @@ User stories: 27, 28
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them.
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_create_remove_move.py`, `tests/ui/test_structure_bulk_filters.py`.

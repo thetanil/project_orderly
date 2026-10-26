@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: none
 Spec: ../spec.md
 
@@ -14,11 +14,11 @@ Pipeline: CI installs Node, type-checks and builds the frontend before `uv build
 
 ## Acceptance criteria
 
-- [ ] `uv run --extra gui po gui` from a fresh checkout (with Node installed) shows the same screen the prototype did, including `--stress 3000` with exactly 3000 rows and no E-level issues.
-- [ ] The wheel built by CI contains the built frontend and `uvx` run-latest works with no Node installed.
-- [ ] A deliberate TypeScript error makes CI fail.
-- [ ] Existing Api tests still pass; Api surface is unchanged.
+- [x] `uv run --extra gui po gui` from a fresh checkout (with Node installed) shows the same screen the prototype did, including `--stress 3000` with exactly 3000 rows and no E-level issues.
+- [x] The wheel built by CI contains the built frontend and `uvx` run-latest works with no Node installed.
+- [x] A deliberate TypeScript error makes CI fail.
+- [x] Existing Api tests still pass; Api surface is unchanged.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 4 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/ui/test_shell_and_open.py` (3000 items, windowed rows, no errors), `tests/test_wheel.py` (wheel in a Node-free venv), `tests/test_frontend_gates.py` (a TypeScript error fails `npm run check`; CI order check), `tests/test_api_surface.py`.

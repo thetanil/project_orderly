@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 01, 02, 04
 Spec: ../spec.md
 
@@ -12,9 +12,9 @@ Replace textareas for description, acceptance criteria and local notes with a Co
 
 ## Acceptance criteria
 
-- [ ] Edits in the editor are undoable with the app-level undo and appear in the Problems list if R22 is violated.
-- [ ] Editor theme follows the dark/light toggle; large descriptions stay responsive.
+- [x] Edits in the editor are undoable with the app-level undo and appear in the Problems list if R22 is violated.
+- [x] Editor theme follows the dark/light toggle; large descriptions stay responsive.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 2 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/ui/test_editor.py`.

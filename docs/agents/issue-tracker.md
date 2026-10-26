@@ -31,9 +31,10 @@ Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 
 ## Closing an implementation issue
 
-When an agent finishes work on an issue, it updates the file before committing:
+Acceptance criteria are checked by automated tests, not by hand. When an agent finishes an issue:
 
-- Tick `- [x]` only the acceptance criteria that an automated test or CI run demonstrates. A criterion that needs a person (real window, visual or desktop check, anything not run in CI) stays `- [ ]`; never tick on the strength of "the code looks right".
-- Set `Status: done` when every box is ticked.
-- Otherwise set `Status: ready-for-human`, and say in `## Comments` which criteria remain and what to check.
+- Every criterion gets a test that runs in CI: Api-level tests for behaviour (`tests/`), browser tests for UI behaviour (`tests/ui/`, headless Chromium against the real Api), and CI/packaging checks as tests too (`tests/test_frontend_gates.py`, `tests/test_wheel.py`). A criterion that sounds like "check it looks right in the window" is rewritten into something a browser test can assert, or raised with the owner; it is not left as a manual step.
+- Tick `- [x]` only a criterion whose test exists and passes.
+- Set `Status: done` when every box is ticked, and list the tests in `## Comments`.
+- If a criterion genuinely cannot be automated, set `Status: ready-for-human`, leave that box open and say why in `## Comments`.
 - Never leave `ready-for-agent` on an issue that has been worked.

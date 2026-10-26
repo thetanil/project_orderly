@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 02, 06, 08
 Spec: ../spec.md
 
@@ -12,8 +12,8 @@ Ctrl+K command palette over items, screens and actions (fuzzy); shortcuts from t
 
 ## Acceptance criteria
 
-- [ ] Every shortcut listed works in the visual test; palette finds an item by id or title in the stress dataset.
+- [x] Every shortcut listed works in the visual test; palette finds an item by id or title in the stress dataset.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/ui/test_shell_and_open.py` (palette, N, Enter/Esc, arrows, Ctrl+Z, F8, `/`), `tests/ui/test_structure_bulk_filters.py` (Alt+Up/Down, Tab/Shift+Tab).

@@ -1,4 +1,4 @@
-Status: ready-for-human
+Status: done
 Blocked by: 04
 Spec: ../spec.md
 
@@ -13,8 +13,8 @@ Alt+Up/Down and drag to rerank among siblings; drag or Tab/Shift+Tab to reparent
 ## Acceptance criteria
 
 - [x] Api tests: midpoint rank, renumber fallback, reparent to wrong level refused, move is one undo step.
-- [ ] Drag and keyboard moves behave the same in the visual test.
+- [x] Drag and keyboard moves behave the same in the visual test.
 
 ## Comments
 
-Implemented on branch main; criteria ticked where an automated test or CI run demonstrates them. 1 criteria remain: they need a look in the real pywebview window on the owner's desktop (or a check not run in CI).
+Implemented on `main`. Every criterion is demonstrated by an automated test that runs in CI: `tests/test_create_remove_move.py`, `tests/ui/test_structure_bulk_filters.py` (drag and keyboard give the same result).

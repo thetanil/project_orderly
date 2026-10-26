@@ -17,7 +17,8 @@ jobs:
       - uses: astral-sh/setup-uv@v10.3.2
         with:
           python-version: ${{ matrix.python-version }}
-      - run: uv run --with pytest --with-editable . pytest -q
+      # the browser, frontend-gate and wheel tests need Node and Chromium: they run in the `ui` job
+      - run: uv run --with pytest --with-editable . pytest -q --ignore=tests/ui --ignore=tests/test_frontend_gates.py --ignore=tests/test_wheel.py
       - run: uv run --with-editable . po test
 
   # A TypeScript or build error in the frontend fails the pipeline.
@@ -37,8 +38,29 @@ jobs:
           npm run check
           npm run build
 
+  # Drives the built frontend in headless Chromium against the real Api, proves a TypeScript error
+  # fails the type-check, and installs the wheel in a Node-free venv.
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Build the frontend into the package
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+      - uses: astral-sh/setup-uv@v10.3.2
+      - name: Install Chromium
+        run: uv run --no-project --with playwright playwright install --with-deps chromium
+      - run: uv run --with pytest --with playwright --with-editable . pytest -q tests/ui tests/test_frontend_gates.py tests/test_wheel.py
+
   build:
-    needs: [test, frontend]
+    needs: [test, frontend, ui]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -66,7 +88,7 @@ jobs:
   # Every push to main (including PR merges) refreshes the rolling `latest` prerelease.
   snapshot:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: [test, frontend]
+    needs: [test, frontend, ui]
     runs-on: ubuntu-latest
     permissions:
       contents: write

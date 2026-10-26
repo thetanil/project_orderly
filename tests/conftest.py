@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+pytest_plugins = ["ui_fixtures"]  # browser fixtures for tests/ui (skip locally without Playwright; fail in CI)
+
 from project_orderly.api import open_store
 from project_orderly.store import Store, sample_data
 
