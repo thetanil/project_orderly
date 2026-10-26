@@ -140,4 +140,5 @@
   .ro{margin:0;padding:6px;background:var(--surface);border:1px solid var(--border);border-radius:4px;white-space:pre-wrap;color:var(--muted)}
   .issue{margin-top:8px;padding:4px 8px;border-left:3px solid var(--warn);background:var(--surface)}.issue.E{border-color:var(--err)}
   .empty{padding:24px 0}
+  .o-InProgress{color:#60A5FA}.o-Resolved{color:#2DD4BF}.o-Completed{color:#4ADE80}.o-Removed{color:#A1A1AA}
 </style>

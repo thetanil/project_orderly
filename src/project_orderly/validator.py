@@ -114,6 +114,16 @@ def issue(rule: str, level: str, item_id: Optional[str], field: Optional[str], m
 
 def validate(data: Dict[str, Any], previous: Optional[Dict[str, Any]] = None, cache: Optional[StructureCache] = None) -> List[Issue]:
     out: List[Issue] = cache.issues(data) if cache is not None else structure_issues(data)
+    try:
+        return out + _semantic(data, previous)
+    except (KeyError, TypeError, AttributeError, ValueError):
+        if out:  # the structure is broken: report that instead of crashing on it
+            return out
+        raise
+
+
+def _semantic(data: Dict[str, Any], previous: Optional[Dict[str, Any]]) -> List[Issue]:
+    out: List[Issue] = []
     model = data.get("model") or {}
     types = model.get("types") or {}
     items: Dict[str, Dict[str, Any]] = data.get("items") or {}

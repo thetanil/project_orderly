@@ -72,3 +72,11 @@ def test_structural_errors_exit_one(tmp_path, sample, capsys):
     data["items"]["ado-301"]["storypoints"] = 3
     code, out, _ = run(capsys, write_store(tmp_path / "b.json", data))
     assert code == 1 and "SCHEMA" in out
+
+
+def test_structurally_broken_model_reports_schema_issues_not_a_traceback(tmp_path, sample, capsys):
+    data = Store(sample).data()
+    del data["model"]["types"]["story"]["estimation"]
+    data["items"]["ado-300"]["parent"] = ["x"]
+    code, out, _ = run(capsys, write_store(tmp_path / "b.json", data))
+    assert code == 1 and "SCHEMA" in out

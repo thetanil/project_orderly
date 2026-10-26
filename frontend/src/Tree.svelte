@@ -193,7 +193,7 @@
           {/if}
 
           {#if it.rollup}
-            <span class="num hint" title={rollupTitle(it)}>Σ{it.rollup.storyPoints}{it.rollup.unestimatedCount ? ` +${it.rollup.unestimatedCount}` : ""}</span>
+            <span class="num hint" title={rollupTitle(it)}>Σ{it.rollup.storyPoints}{it.rollup.unestimatedCount ? ` +${it.rollup.unestimatedCount}?` : ""}{it.rollup.notEstimableCount ? ` ·${it.rollup.notEstimableCount}n/e` : ""}</span>
           {:else if editing?.id === it.id && editing.field === "storyPoints"}
             <input class="num-in" type="number" min="0" step="0.5" value={it.storyPoints ?? ""} use:focusSelect onkeydown={(e) => editKey(e, it)} onblur={(e) => commit(it, e.currentTarget.value)} onclick={(e) => e.stopPropagation()} />
           {:else}

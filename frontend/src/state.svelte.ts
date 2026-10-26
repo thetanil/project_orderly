@@ -81,6 +81,12 @@ export class AppState {
     try {
       const snap = await this.call("snapshot");
       this.settings = snap.settings ?? this.settings;
+      if (!snap.path) {
+        try {
+          const th = localStorage.getItem("bd-theme"), de = localStorage.getItem("bd-density");
+          this.settings = { ...this.settings, ...(th ? { theme: th as Settings["theme"] } : {}), ...(de ? { density: de as Settings["density"] } : {}) };
+        } catch { /* ignore */ }
+      }
       this.applyTheme();
       if (snap.error) { this.error = snap.error; this.loaded = true; return; }
       this.snapshot(snap);
@@ -304,6 +310,8 @@ export class AppState {
   async setSetting(key: keyof Settings, value: unknown) {
     this.settings = { ...this.settings, [key]: value } as Settings;
     this.applyTheme();
+    // no file means no .backlogdesk/ folder: remember theme and density in the browser instead
+    try { localStorage.setItem("bd-" + key, String(value)); } catch { /* private mode */ }
     if (key === "density") this.rebuild();
     const r = await this.call("set_setting", key, value);
     if (r.ok === false) this.say(r.error);
